@@ -30,6 +30,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationListener;
 import com.dave.nauweather.api.amap.RuestAmapWeather;
 import com.dave.nauweather.api.entity.AirNowBean;
+import com.dave.nauweather.api.entity.DailyForecastBean;
 import com.dave.nauweather.api.entity.HourlyForecastBean;
 import com.dave.nauweather.api.entity.IndicesBean;
 import com.dave.nauweather.api.entity.LookUpGeoCityBean;
@@ -213,6 +214,7 @@ public class MainActivity extends Activity {
 				+response.body().location.get(0).name);
 				requestNowWeather(response.body());
 				request24HWeather(response.body());
+				request7DaysWeather(response.body());
 				requestAirNowWeather(response.body());
 				requestIndices1DayWeather(response.body());
 			}
@@ -223,6 +225,35 @@ public class MainActivity extends Activity {
 			}
 		});
 
+	}
+
+	private void request7DaysWeather(LookUpGeoCityBean body) {
+		Retrofit retrofit = new Retrofit.Builder()
+				.baseUrl(GEO_BASE_URL) // 设置 网络请求 Url
+				.addConverterFactory(GsonConverterFactory.create()) //设置使用Gson解析(记得加入依赖)
+				.build();
+		// 步骤5:创建 网络请求接口 的实例
+		GetRequest_Interface request = retrofit.create(GetRequest_Interface.class);
+		//对 发送请求 进行封装
+		Call<DailyForecastBean> call = request.getGeoIndices7DayWeatherData(body.location.get(0).id,GEO_WEATHER_KEY);
+		//步骤6:发送网络请求(异步)
+		call.enqueue(new Callback<DailyForecastBean>() {
+			//请求成功时回调
+			@Override
+			public void onResponse(Call<DailyForecastBean> call, Response<DailyForecastBean> response) {
+				// 步骤7：处理返回的数据结果
+				Log.d(TAG,"request7DaysWeather onLocationChanged info="+response.body().code
+						+",updateTime="+response.body().updateTime
+						+",moonPhase="+response.body().daily.get(0).moonPhase);
+				//mHourlyForecastView.setData(response.body());
+			}
+
+			//请求失败时回调
+			@Override
+			public void onFailure(Call<DailyForecastBean> call, Throwable throwable) {
+				Log.d(TAG,"request7DaysWeather onLocationChanged 连接失败=");
+			}
+		});
 	}
 
 	private void request24HWeather(LookUpGeoCityBean body) {
@@ -243,7 +274,6 @@ public class MainActivity extends Activity {
 				Log.d(TAG,"request24HWeather onLocationChanged info="+response.body().code
 						+",updateTime="+response.body().updateTime
 						+",text="+response.body().hourly.get(0).text);
-				//mHourlyForecastView = new HourlyForecastView(mContext);
 				mHourlyForecastView.setData(response.body());
 			}
 

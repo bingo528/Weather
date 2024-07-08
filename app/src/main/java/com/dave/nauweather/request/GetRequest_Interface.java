@@ -2,6 +2,7 @@ package com.dave.nauweather.request;
 
 import com.dave.nauweather.api.amap.AmapWeatherBean;
 import com.dave.nauweather.api.entity.AirNowBean;
+import com.dave.nauweather.api.entity.DailyForecastBean;
 import com.dave.nauweather.api.entity.HourlyForecastBean;
 import com.dave.nauweather.api.entity.IndicesBean;
 import com.dave.nauweather.api.entity.LookUpGeoCityBean;
@@ -33,4 +34,8 @@ public interface GetRequest_Interface {
     //https://devapi.qweather.com/v7/indices/1d?type=0&location=101020200&key=bf24fd6ccdc94f43b97bf83ad31b41f2
     @GET("1d?")
     Call<IndicesBean> getGeoIndices1DayWeatherData(@Query("type") String type, @Query("location") String location, @Query("key") String key);
+    //https://devapi.qweather.com//v7/weather/7d?location=101020200&key=bf24fd6ccdc94f43b97bf83ad31b41f2
+    @GET("7d?")
+    Call<DailyForecastBean> getGeoIndices7DayWeatherData(@Query("location") String location, @Query("key") String key);
+
 }
