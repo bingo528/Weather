@@ -118,11 +118,11 @@
                     android:textColor="@color/w_text_secondary"
                     android:textSize="12dp" />
 
-                <!--<com.dave.nauweather.widget.DailyForecastView
+                <com.dave.nauweather.widget.DailyForecastView
                     android:id="@+id/w_dailyForecastView"
                     android:layout_width="match_parent"
                     android:layout_height="216dp"
-                    android:layout_alignParentBottom="true" />-->
+                    android:layout_alignParentBottom="true" />
             </RelativeLayout>
 
             <View

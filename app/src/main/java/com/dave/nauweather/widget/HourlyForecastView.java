@@ -59,10 +59,8 @@ public class HourlyForecastView extends View {
 	public  class Data {
 		public float offsetPercent;// , maxOffsetPercent;// 差值%
 		public int tmp;// , tmp_min;
-		/** 2015-11-05 04:00 **/
 		public String date;
 		public String wind_sc;
-		/** 降水概率 **/
 		public String pop;
 	}
 	public HourlyForecastView(Context context) {

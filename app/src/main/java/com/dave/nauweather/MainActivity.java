@@ -37,6 +37,7 @@ import com.dave.nauweather.api.entity.LookUpGeoCityBean;
 import com.dave.nauweather.api.amap.AmapWeatherBean;
 import com.dave.nauweather.api.entity.NowWeatherBean;
 import com.dave.nauweather.request.GetRequest_Interface;
+import com.dave.nauweather.widget.DailyForecastView;
 import com.dave.nauweather.widget.HourlyForecastView;
 import com.qweather.sdk.view.HeConfig;
 
@@ -80,6 +81,7 @@ public class MainActivity extends Activity {
 	TextView mTvTodayVisText;
 	TextView mTvTodayPrecipText;
 	HourlyForecastView mHourlyForecastView;
+	DailyForecastView mDailyForecastView;
 
 
 	@Override
@@ -147,6 +149,7 @@ public class MainActivity extends Activity {
 		mTvTodayVisText = findViewById(R.id.w_now_vis);
 		mTvTodayPrecipText = findViewById(R.id.w_now_pcpn);
 		mHourlyForecastView = findViewById(R.id.w_hourlyForecastView);
+		mDailyForecastView = findViewById(R.id.w_dailyForecastView);
 	}
 
 	private void initAMap() {
@@ -245,7 +248,7 @@ public class MainActivity extends Activity {
 				Log.d(TAG,"request7DaysWeather onLocationChanged info="+response.body().code
 						+",updateTime="+response.body().updateTime
 						+",moonPhase="+response.body().daily.get(0).moonPhase);
-				//mHourlyForecastView.setData(response.body());
+				mDailyForecastView.setData(response.body());
 			}
 
 			//请求失败时回调
