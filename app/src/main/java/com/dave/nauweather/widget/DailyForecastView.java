@@ -112,11 +112,34 @@ public class DailyForecastView extends View {
 			yMin[i] = dCenterY - d.minOffsetPercent * dH;
 			String datatime = d.date.substring(5);
 			Log.d(TAG,"onDraw datatime="+datatime);
+			int windScal = Integer.parseInt(d.wind_sc.substring(2));
+			String winScalDes = "";
+			if (windScal <= 3){
+				winScalDes = "微风";
+			}else if(windScal ==4){
+				winScalDes = "和风";
+			}else if(windScal ==5){
+				winScalDes = "清风";
+			}else if(windScal ==6){
+				winScalDes = "强风";
+			}else if(windScal ==7){
+				winScalDes = "疾风";
+			}else if(windScal ==8){
+				winScalDes = "大风";
+			}else if(windScal ==9){
+				winScalDes = "烈风";
+			}else if(windScal ==10){
+				winScalDes = "狂风";
+			}else if(windScal ==11){
+				winScalDes = "暴风";
+			}else if(windScal ==12){
+				winScalDes = "飓风";
+			}
 			canvas.drawText(d.tmp_max + "°", x[i], yMax[i] - textSize + textOffset, paint);// - textSize 
 			canvas.drawText(d.tmp_min + "°", x[i], yMin[i] + textSize  + textOffset, paint);
 			canvas.drawText(datatime, x[i], textSize * 13.5f + textOffset, paint);//日期d.date.substring(5)
 			canvas.drawText(d.cond_txt_d + "", x[i], textSize * 15f + textOffset, paint);//“晴"
-			canvas.drawText(d.wind_sc, x[i],textSize * 16.5f + textOffset, paint);//微风
+			canvas.drawText(winScalDes, x[i],textSize * 16.5f + textOffset, paint);//微风
 		
 		}
 		paint.setAlpha(255);
@@ -195,7 +218,7 @@ public class DailyForecastView extends View {
 				data.tmp_max = max;
 				data.tmp_min = min;
 				data.date = forecast.fxDate;
-				data.wind_sc = forecast.windDirDay;
+				data.wind_sc = forecast.windScaleDay;
 				data.cond_txt_d = forecast.textDay;
 				datas[i] = data;
 			}
