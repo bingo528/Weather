@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/w_look_city"
-            android:onClick="openSettings"
             android:text="设置" />
     </RelativeLayout>
     <ScrollView

@@ -10,7 +10,6 @@ import static com.dave.nauweather.api.ApiManager.LOOKUP_URL;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -393,10 +392,5 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		//weatherView.onDestroy();
-	}
-
-    public void openSettings(View view) {
-		Intent intent = new Intent(this, SettingsActivity.class);
-		startActivity(intent);
 	}
 }
