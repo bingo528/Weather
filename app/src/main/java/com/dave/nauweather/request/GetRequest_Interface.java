@@ -23,7 +23,7 @@ public interface GetRequest_Interface {
 
     //https://devapi.qweather.com/v7/weather/now?location=101020200&key=bf24fd6ccdc94f43b97bf83ad31b41f2
     @GET("now?")
-    Call<NowWeatherBean> getGeoNowWeatherData(@Query("location") String location, @Query("key") String key);
+    Call<NowWeatherBean> getGeoNowWeatherData(@ Query("location") String location, @Query("key") String key);
     //https://devapi.qweather.com/v7/weather/24h?location=101020200&key=bf24fd6ccdc94f43b97bf83ad31b41f2
     @GET("24h?")
     Call<HourlyForecastBean> getGeo24HourWeatherData(@Query("location") String location, @Query("key") String key);

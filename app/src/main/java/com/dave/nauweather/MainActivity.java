@@ -8,6 +8,7 @@ import static com.dave.nauweather.api.ApiManager.GEO_WEATHER_KEY;
 import static com.dave.nauweather.api.ApiManager.LOOKUP_URL;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -45,7 +47,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	private  Context mContext;
 	public AMapLocationClient mLocationClient = null;
 	private static final String TAG = "MainActivity";
@@ -94,20 +96,6 @@ public class MainActivity extends FragmentActivity {
 				}
 			}
 		}
-		AlphaAnimation alphaAnimation = new AlphaAnimation(0f, 1f);
-		alphaAnimation.setDuration(260);
-		alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-				getWindow().setBackgroundDrawable(//getResources().getDrawable(R.drawable.window_frame_color));
-						new ColorDrawable(Color.BLACK));
-//				WeatherNotificationService.startServiceWithNothing(MainActivity.this);
-			}
-			@Override
-			public void onAnimationRepeat(Animation animation) {}
-			@Override
-			public void onAnimationEnd(Animation animation) {}
-		});
 		setContentView(R.layout.fragment_weather);
 		mContext = this;
 		initView();
@@ -115,6 +103,12 @@ public class MainActivity extends FragmentActivity {
 
 
 		
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 	public static Typeface typeface;
 
@@ -196,7 +190,6 @@ public class MainActivity extends FragmentActivity {
 		Log.d(TAG,"requestGeoNowApi onLocationChanged amapLocation.getAdCode()="+amapLocation.getAdCode()
 				+",getProvince="+amapLocation.getProvince());
 
-
 		//步骤4:创建Retrofit对象
 		Retrofit retrofit = new Retrofit.Builder()
 				.baseUrl(LOOKUP_URL) // 设置 网络请求 Url
@@ -221,9 +214,7 @@ public class MainActivity extends FragmentActivity {
 				request24HWeather(response.body());
 				requestAirNowWeather(response.body());
 				requestIndices1DayWeather(response.body());
-
 			}
-
 			//请求失败时回调
 			@Override
 			public void onFailure(Call<LookUpGeoCityBean> call, Throwable throwable) {
@@ -301,7 +292,7 @@ public class MainActivity extends FragmentActivity {
 			//请求失败时回调
 			@Override
 			public void onFailure(Call<IndicesBean> call, Throwable throwable) {
-				Log.d(TAG,"requestNowWeather onLocationChanged 连接失败=");
+				Log.d(TAG,"requestIndices1DayWeather onLocationChanged 连接失败=");
 			}
 		});
 	}
@@ -321,8 +312,8 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onResponse(Call<AirNowBean> call, Response<AirNowBean> response) {
 				// 步骤7：处理返回的数据结果
-				Log.d(TAG,"requestNowWeather onLocationChanged info="+response.body().code
-						+",text="+response.body().now.pm2p5);
+				Log.d(TAG,"requestAirNowWeather onLocationChanged info="+response.body().code
+						+",pm2p5="+response.body().now.pm2p5);
 				mTvAirPm25Text.setText(response.body().now.pm2p5+"μg/m³");
 				mTvAirPm10Text.setText(response.body().now.pm10+"μg/m³");
 				mTvAirSO2Text.setText(response.body().now.so2+"μg/m³");
@@ -334,7 +325,7 @@ public class MainActivity extends FragmentActivity {
 			//请求失败时回调
 			@Override
 			public void onFailure(Call<AirNowBean> call, Throwable throwable) {
-				Log.d(TAG,"requestNowWeather onLocationChanged 连接失败=");
+				Log.d(TAG,"requestAirNowWeather onLocationChanged 连接失败=");
 			}
 		});
 	}
@@ -356,6 +347,7 @@ public class MainActivity extends FragmentActivity {
 			public void onResponse(Call<NowWeatherBean> call, Response<NowWeatherBean> response) {
 				// 步骤7：处理返回的数据结果
 				Log.d(TAG,"requestNowWeather onLocationChanged info="+response.body().code
+						+",temp="+response.body().now.temp
 						+",text="+response.body().now.text);
 				mTvNowTemp.setText(response.body().now.temp);
 				mTvNowCondText.setText(response.body().now.text);
