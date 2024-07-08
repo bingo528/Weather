@@ -10,46 +10,59 @@
     android:orientation="vertical"
     android:showDividers="middle|end"
     tools:ignore="ResAuto">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/w_divider_size"
-                android:background="@color/w_divider" />
-
-            <TextView
-                android:id="@+id/settings_gps_location"
-                style="@style/cell_single_item_text"
-                android:text="正在获取当前位置..."
-                android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/settings_manage_area"
-            style="@style/cell_single_item_text"
-            android:text="位置管理[Sample]" />
-
-
-        <TextView
-            android:id="@+id/settings_appwidget"
-            style="@style/cell_single_item_text"
-            android:text="桌面小工具[Sample]" />
+    <Button
+        android:id="@+id/settings_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="openBack"
+        android:text="返回" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/settings_about"
-            style="@style/cell_single_item_text"
-            android:text="关于[Sample]" />
-        
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/w_text_primary"
+            android:text="关于" />
+
         <TextView
-            style="@style/cell_single_item_text"
-            android:text="点击天气界面任意位置可选动态天气类型" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="0dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:text="用了高德SDK获取定位，使用和天气SDK获取天气详情"
+            android:textColor="@color/mxx_text_secondary"
+            android:textSize="12dp" />
+    </LinearLayout>
+        <TextView
+            android:id="@+id/settings_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:textColor="@color/w_text_primary"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:text="版本号" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/settings_github"
-                style="@style/cell_single_item_text"
-                android:drawableRight="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/w_text_primary"
                 android:text="Github" />
 
             <TextView
